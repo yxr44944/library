@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>图书详情</title>
+</head>
+<body>
+<center>
+    <h1>书籍详情</h1>
+</center>
+    <div th:include="common.html"></div>
+    <input type="hidden" id="bookId" th:value="${book.bid}">
+        <strong>书籍名称:<strong> <span th:text="${book.bname}"/> <br>
+            <strong>书籍简介:<strong> <span th:text="${book.introduce}"></span> <br>
+                <strong>书籍作者:<strong> <span th:text="${book.author}"></span> <br>
+                    <strong>借阅次数:<strong> <span th:text="${book.count}"></span> <br>
+                        <strong>借阅状态:<strong> <span th:text="${book.flag}"></span> <br>
+                            <strong>点击量:<strong> <span th:text="${book.clickCount}"></span> <br>
+                                <strong>书籍图片:<strong> <img th:src="${book.photo}"
+                                                           style="height: 200px;weight:200px"><br>
+
+
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.library.dao.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.yxr.library.model.Book" >
+    <id column="BID" property="bid" jdbcType="VARCHAR" />
+    <result column="BNAME" property="bname" jdbcType="VARCHAR" />
+    <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="COUNT" property="count" jdbcType="DECIMAL" />
+    <result column="BROID" property="broid" jdbcType="VARCHAR" />
+    <result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+    <result column="CLICK_COUNT" property="clickCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BID, BNAME, INTRODUCE, AUTHOR, COUNT, BROID, PHOTO, CLICK_COUNT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yxr.library.model.BookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from BOOK
+    where BID = #{bid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from BOOK
+    where BID = #{bid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yxr.library.model.BookExample" >
+    delete from BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yxr.library.model.Book" >
+    insert into BOOK (BID, BNAME, INTRODUCE, 
+      AUTHOR, COUNT, BROID, 
+      PHOTO, CLICK_COUNT)
+    values (#{bid,jdbcType=VARCHAR}, #{bname,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{count,jdbcType=DECIMAL}, #{broid,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{clickCount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxr.library.model.Book" >
+    insert into BOOK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        BID,
+      </if>
+      <if test="bname != null" >
+        BNAME,
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="count != null" >
+        COUNT,
+      </if>
+      <if test="broid != null" >
+        BROID,
+      </if>
+      <if test="photo != null" >
+        PHOTO,
+      </if>
+      <if test="clickCount != null" >
+        CLICK_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=DECIMAL},
+      </if>
+      <if test="broid != null" >
+        #{broid,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yxr.library.model.BookExample" resultType="java.lang.Integer" >
+    select count(*) from BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update BOOK
+    <set >
+      <if test="record.bid != null" >
+        BID = #{record.bid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bname != null" >
+        BNAME = #{record.bname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduce != null" >
+        INTRODUCE = #{record.introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        AUTHOR = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null" >
+        COUNT = #{record.count,jdbcType=DECIMAL},
+      </if>
+      <if test="record.broid != null" >
+        BROID = #{record.broid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null" >
+        PHOTO = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clickCount != null" >
+        CLICK_COUNT = #{record.clickCount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update BOOK
+    set BID = #{record.bid,jdbcType=VARCHAR},
+      BNAME = #{record.bname,jdbcType=VARCHAR},
+      INTRODUCE = #{record.introduce,jdbcType=VARCHAR},
+      AUTHOR = #{record.author,jdbcType=VARCHAR},
+      COUNT = #{record.count,jdbcType=DECIMAL},
+      BROID = #{record.broid,jdbcType=VARCHAR},
+      PHOTO = #{record.photo,jdbcType=VARCHAR},
+      CLICK_COUNT = #{record.clickCount,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxr.library.model.Book" >
+    update BOOK
+    <set >
+      <if test="bname != null" >
+        BNAME = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        COUNT = #{count,jdbcType=DECIMAL},
+      </if>
+      <if test="broid != null" >
+        BROID = #{broid,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        PHOTO = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null" >
+        CLICK_COUNT = #{clickCount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where BID = #{bid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxr.library.model.Book" >
+    update BOOK
+    set BNAME = #{bname,jdbcType=VARCHAR},
+      INTRODUCE = #{introduce,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      COUNT = #{count,jdbcType=DECIMAL},
+      BROID = #{broid,jdbcType=VARCHAR},
+      PHOTO = #{photo,jdbcType=VARCHAR},
+      CLICK_COUNT = #{clickCount,jdbcType=DECIMAL}
+    where BID = #{bid,jdbcType=VARCHAR}
+  </update>
+  <select id="queryBookList" parameterType="com.yxr.library.vo.BookVo" resultType="com.yxr.library.vo.BookVo">
+    select * from (select b.*,b.click_count as clickCount,case when b.BROID=0 then'no' when b.BROID=1 then 'yes' end as flag,(select a.BORROWING_TIME
+    from(select * from BORROW bor order by bor.BORROWING_TIME desc ) a where rownum=1 and a.BID=b.BID) as
+    borrowNewTime from BOOK b) c
+    where 1=1
+    <if test="  bname!=null and bname!='' ">
+      and c.bname like concat(concat('%', #{bname}), '%')
+    </if>
+    <if test="startTime!=null and endTime !=null">
+      and c.borrowNewTime between #{startTime} and #{endTime}
+    </if>
+
+  </select>
+
+  <update id="updateFlag">
+    update BOOK b set b.BROID=1,b.COUNT=b.COUNT+1 where b.BID=#{bid}
+  </update>
+  <select id="queryBookListById" parameterType="String" resultType="com.yxr.library.vo.BookVo">
+  select * from (select b.*,b.click_count as clickCount,case when b.BROID=0 then'no' when b.BROID=1 then 'yes' end as flag,(select a.BORROWING_TIME
+  from(select * from BORROW bor order by bor.BORROWING_TIME desc ) a where rownum=1 and a.BID=b.BID) as
+  borrowNewTime from BOOK b) c  where c.bid=#{bid}
+  </select>
+</mapper>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.library.dao.BorrowMapper" >
+  <resultMap id="BaseResultMap" type="com.yxr.library.model.Borrow" >
+    <id column="BROID" property="broid" jdbcType="VARCHAR" />
+    <result column="BID" property="bid" jdbcType="VARCHAR" />
+    <result column="BORROWING_TIME" property="borrowingTime" jdbcType="TIMESTAMP" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BROID, BID, BORROWING_TIME, USERID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yxr.library.model.BorrowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BORROW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from BORROW
+    where BROID = #{broid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from BORROW
+    where BROID = #{broid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yxr.library.model.BorrowExample" >
+    delete from BORROW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yxr.library.model.Borrow" >
+    insert into BORROW (BROID, BID, BORROWING_TIME, 
+      USERID)
+    values (#{broid,jdbcType=VARCHAR}, #{bid,jdbcType=VARCHAR}, #{borrowingTime,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxr.library.model.Borrow" >
+    insert into BORROW
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="broid != null" >
+        BROID,
+      </if>
+      <if test="bid != null" >
+        BID,
+      </if>
+      <if test="borrowingTime != null" >
+        BORROWING_TIME,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="broid != null" >
+        #{broid,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowingTime != null" >
+        #{borrowingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yxr.library.model.BorrowExample" resultType="java.lang.Integer" >
+    select count(*) from BORROW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update BORROW
+    <set >
+      <if test="record.broid != null" >
+        BROID = #{record.broid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bid != null" >
+        BID = #{record.bid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowingTime != null" >
+        BORROWING_TIME = #{record.borrowingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update BORROW
+    set BROID = #{record.broid,jdbcType=VARCHAR},
+      BID = #{record.bid,jdbcType=VARCHAR},
+      BORROWING_TIME = #{record.borrowingTime,jdbcType=TIMESTAMP},
+      USERID = #{record.userid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxr.library.model.Borrow" >
+    update BORROW
+    <set >
+      <if test="bid != null" >
+        BID = #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowingTime != null" >
+        BORROWING_TIME = #{borrowingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BROID = #{broid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxr.library.model.Borrow" >
+    update BORROW
+    set BID = #{bid,jdbcType=VARCHAR},
+      BORROWING_TIME = #{borrowingTime,jdbcType=TIMESTAMP},
+      USERID = #{userid,jdbcType=VARCHAR}
+    where BROID = #{broid,jdbcType=VARCHAR}
+  </update>
+  <select id="queryBorrowBook" parameterType="string" resultType="com.yxr.library.vo.BorrowVo">
+   select bor.BROID,bor.BORROWING_TIME as borrowingTime,b.BNAME,u.UNAME from BORROW bor left join BOOK b on bor.BID=b.BID left join B_USER u on bor.USERID=u.USERID
+        where bor.BID=#{bid} order by bor.BORROWING_TIME desc
+  </select>
+</mapper>

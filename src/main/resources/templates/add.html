@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>addBook</title>
+</head>
+<link rel="stylesheet" th:href="@{../static/css/bootstrap.min.css}">
+<body>
+<center>
+    <h2>书籍添加</h2>
+    <span style="color: red" th:text="${msg}"></span>
+    <form action="/book/addBook" method="post" enctype="multipart/form-data">
+        书籍名称：<input type="text" name="bname"><br>
+        书籍简介：<textarea name="introduce" style="width:250px;height:15px;"></textarea><br>
+        书籍作者：<input name="author" type="text"><br>
+        书籍图片：<input type="file" name="file" ><br>
+        <input type="submit" value="上传" class="btn btn-success">
+    </form>
+</center>
+</body>
+</html>
